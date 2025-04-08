@@ -9,6 +9,12 @@ def save_backup(number, name=None):
         f"save00_backup_{number}_{name}" if name else f"save00_backup_{number}"
     )
     destination = os.path.join(os.path.dirname(source), backup_name)
+
+    # Check if the destination exists and remove it if it does
+    if os.path.exists(destination):
+        shutil.rmtree(destination)
+        print("Removed existing backup.")
+
     shutil.copytree(source, destination)
     print(f"Backup created: {destination}")
 
